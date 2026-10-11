@@ -6,6 +6,7 @@ const path = require('path');
 const interessadosRoutes = require('./routes/interessados.routes');
 const usuariosRoutes = require('./routes/usuarios.routes');
 const authRoutes = require('./routes/auth.routes');
+const referenciasRoutes = require('./routes/referencia.routes');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use('/api/interessados', interessadosRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/referencias', referenciasRoutes);
 
 // Rota simples, sem módulo próprio, só para confirmar que o servidor
 // está respondendo
