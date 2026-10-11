@@ -97,17 +97,17 @@ O sistema não deverá armazenar ou reproduzir os conteúdos audiovisuais de ter
 
 ## RF05 — Gerenciamento de materiais de aula
 
-O sistema deve permitir o upload, armazenamento e gerenciamento dos arquivos PDF correspondentes aos materiais de apoio utilizados durante as aulas.
+O sistema deve permitir o cadastro, consulta, edição e exclusão do link de acesso aos arquivos PDF correspondentes aos materiais de apoio utilizados durante as aulas, hospedados em serviço de armazenamento externo (ex: Google Drive). O sistema não armazenará os arquivos diretamente.
 
-Os materiais de aula deverão estar disponíveis para consulta e download pelos alunos autenticados.
+Os materiais de aula deverão estar disponíveis para consulta e download pelos alunos autenticados, através do link cadastrado.
 
 Os materiais de aula não participarão do cálculo do progresso do aluno.
 
 ## RF06 — Gerenciamento de atividades
 
-O sistema deve permitir o upload, armazenamento e gerenciamento dos arquivos PDF correspondentes às atividades propostas pelos monitores.
+O sistema deve permitir o cadastro, consulta, edição e exclusão do link de acesso aos arquivos PDF correspondentes às atividades propostas pelos monitores, hospedados em serviço de armazenamento externo (ex: Google Drive). O sistema não armazenará os arquivos diretamente.
 
-As atividades deverão estar disponíveis para download pelos alunos autenticados.
+As atividades deverão estar disponíveis para download pelos alunos autenticados, através do link cadastrado.
 
 Após realizar a atividade fora da plataforma, o aluno poderá registrá-la como concluída no sistema.
 
@@ -159,7 +159,9 @@ O sistema deve permitir que o aluno registre manualmente a conclusão de uma ati
 
 A marcação de conclusão deverá ser associada ao aluno e à respectiva atividade.
 
-Uma mesma atividade não deverá ser registrada como concluída mais de uma vez pelo mesmo aluno.
+Uma mesma atividade não deverá ser registrada como concluída mais de uma vez pelo mesmo aluno, salvo se a marcação anterior tiver sido desfeita.
+
+O sistema deve permitir que o aluno desfaça o registro de conclusão de uma atividade marcada anteriormente, podendo registrá-la como concluída novamente quando desejar.
 
 ## RF13 — Histórico e progresso do aluno
 
@@ -194,7 +196,7 @@ O gerenciamento não será restrito ao monitor que realizou o cadastro original.
 
 O sistema deve permitir que qualquer monitor cadastrado:
 
-- faça o upload de materiais de apoio;
+- cadastre o link de acesso aos materiais de apoio;
 - consulte materiais;
 - edite materiais;
 - exclua materiais.
@@ -212,7 +214,7 @@ O sistema deve permitir que qualquer monitor cadastrado:
 - consulte atividades;
 - edite atividades;
 - exclua atividades;
-- faça o upload dos respectivos arquivos PDF.
+- cadastre o link de acesso ao respectivo arquivo PDF.
 
 As atividades cadastradas deverão ficar disponíveis para download pelos alunos autenticados.
 
