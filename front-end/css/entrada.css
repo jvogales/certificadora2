@@ -1,0 +1,142 @@
+/* =========================================================
+   TELA DE ENTRADA (index.html)
+   ========================================================= */
+
+.entrada {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: var(--sp-64);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--sp-48);
+}
+
+.entrada__marca .logo { margin-bottom: var(--sp-48); }
+
+.entrada__titulo {
+  font-size: 56px;
+  line-height: 60px;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--sp-24);
+}
+
+.entrada__texto {
+  color: var(--color-muted);
+  font-size: 18px;
+  line-height: 28px;
+  max-width: 520px;
+  margin-bottom: var(--sp-32);
+}
+
+.entrada__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-16);
+}
+
+.entrada__lista li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.entrada__lista svg {
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.entrada__painel {
+  padding: var(--sp-32);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-16);
+}
+
+.entrada__painel h2 { font-size: 28px; line-height: 32px; }
+
+.perfis {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-16);
+  width: 100%;
+  min-height: 64px;
+  padding: 12px var(--sp-16);
+  border-radius: var(--radius-8);
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-canvas);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.perfil:hover,
+.perfil:focus-visible {
+  border-color: var(--color-accent);
+  background: var(--color-elevated);
+}
+
+.perfil .avatar { flex-shrink: 0; }
+
+.perfil__nome { font-weight: 600; display: block; }
+.perfil__papel { font-size: 14px; color: var(--color-muted); display: block; }
+
+.perfil__seta {
+  margin-left: auto;
+  color: var(--color-muted);
+}
+
+.perfil__seta svg { width: 18px; height: 18px; }
+
+.aviso-demo {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--color-muted);
+  padding: 12px var(--sp-16);
+  border-radius: var(--radius-8);
+  background: var(--color-canvas);
+  border-left: 3px solid var(--color-info);
+}
+
+.entrada__painel form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-16);
+}
+
+@media (max-width: 900px) {
+  .entrada {
+    grid-template-columns: 1fr;
+    gap: var(--sp-32);
+    padding: var(--sp-32) var(--sp-16);
+    align-items: start;
+  }
+
+  .entrada__marca .logo { margin-bottom: var(--sp-24); }
+
+  .entrada__titulo {
+    font-size: 40px;
+    line-height: 44px;
+  }
+
+  .entrada__texto { font-size: 16px; line-height: 24px; }
+
+  .entrada__lista { display: none; }
+
+  .entrada__painel { padding: var(--sp-24); }
+}
+
+/* Na tela de entrada o nome da marca aparece também no celular */
+.entrada .logo__brand { display: flex; }

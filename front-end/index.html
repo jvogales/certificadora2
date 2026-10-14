@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entrar · Talkflix UTFPR</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/entrada.css" />
+</head>
+<body>
+  <!--
+    Tela de entrada do Front-End (João Paulo).
+    Leva às áreas autenticadas: repositório e área do monitor.
+    Quando a página inicial pública do projeto (Larissa) estiver pronta,
+    o botão "Entrar" dela pode apontar para cá, ou este login pode virar o pop-up dela.
+  -->
+  <main class="entrada">
+    <section class="entrada__marca">
+      <div class="logo">
+        <span class="logo__icon" id="logo-icone"></span>
+        <span class="logo__brand">
+          <span class="logo__name">Talkflix</span>
+          <span class="logo__sub">UTFPR</span>
+        </span>
+      </div>
+      <h1 class="entrada__titulo">Inglês, histórias e boas conversas.</h1>
+      <p class="entrada__texto">
+        Projeto de extensão da UTFPR Câmpus Cornélio Procópio de aulas de conversação em inglês com séries de TV.
+        Aqui ficam as referências das aulas, os materiais de apoio e as atividades.
+      </p>
+      <ul class="entrada__lista">
+        <li><span id="ic-1"></span> Repositório com séries, filmes e músicas usados nas aulas</li>
+        <li><span id="ic-2"></span> Materiais e atividades em PDF</li>
+        <li><span id="ic-3"></span> Área do monitor para organizar os conteúdos</li>
+      </ul>
+    </section>
+
+    <section class="entrada__painel panel" aria-labelledby="titulo-acesso">
+      <h2 id="titulo-acesso">Entrar</h2>
+      <div id="area-acesso"></div>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/mock-dados.js"></script>
+  <script src="js/sessao.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/entrada.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Repositório de materiais · Talkflix UTFPR</title>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/repositorio.css" />
+</head>
+<body>
+  <header class="navbar" id="navbar"></header>
+
+  <div class="app">
+    <nav class="sidebar" id="sidebar" aria-label="Menu principal"></nav>
+
+    <main class="main" id="conteudo-principal">
+      <div class="page-header">
+        <div>
+          <div class="page-header__eyebrow">Acervo do projeto</div>
+          <h1>Repositório de materiais</h1>
+          <p class="page-header__desc">
+            Referências das séries, filmes e músicas usados nas aulas, materiais de apoio e atividades em PDF.
+          </p>
+        </div>
+        <div class="page-header__actions" id="acoes-cabecalho"></div>
+      </div>
+
+      <p class="aviso-direitos">
+        O Talkflix não armazena nem reproduz conteúdos audiovisuais. Cada referência indica onde o conteúdo pode ser encontrado.
+      </p>
+
+      <section class="filtros" aria-label="Busca e filtros">
+        <div class="tabs" role="tablist" id="abas-categoria" aria-label="Categoria"></div>
+
+        <div class="filtros__linha">
+          <div class="search">
+            <span id="icone-busca"></span>
+            <label class="sr-only" for="campo-busca">Buscar no repositório</label>
+            <input class="input" id="campo-busca" type="search" placeholder="Buscar por título, artista, plataforma..." autocomplete="off" />
+          </div>
+
+          <div class="filtros__selects">
+            <label class="sr-only" for="ordenacao">Ordenar por</label>
+            <select class="select" id="ordenacao">
+              <option value="recentes">Cadastrados recentemente</option>
+              <option value="antigos">Cadastrados há mais tempo</option>
+              <option value="titulo">Título (A–Z)</option>
+              <option value="ano">Ano de lançamento</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filtros__chips" id="chips-tipo" role="group" aria-label="Tipo de mídia"></div>
+      </section>
+
+      <div class="resultado-info">
+        <span id="contagem" aria-live="polite"></span>
+        <button class="btn btn--ghost btn--sm" id="btn-limpar" hidden>Limpar filtros</button>
+      </div>
+
+      <section class="grade" id="lista-conteudos" aria-label="Conteúdos"></section>
+    </main>
+  </div>
+
+  <!-- Pop-up de detalhes do conteúdo -->
+  <div class="modal" id="modal-detalhes" role="dialog" aria-modal="true" aria-labelledby="detalhes-titulo">
+    <div class="modal__box">
+      <div class="modal__header">
+        <div class="detalhes-topo" id="detalhes-topo"></div>
+        <button class="btn btn--ghost btn--icon modal__close" data-fechar="modal-detalhes" aria-label="Fechar" id="btn-fechar-detalhes"></button>
+      </div>
+      <div class="modal__body" id="detalhes-corpo"></div>
+      <div class="modal__footer" id="detalhes-rodape"></div>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/mock-dados.js"></script>
+  <script src="../js/sessao.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/busca.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/repositorio.js"></script>
+</body>
+</html>

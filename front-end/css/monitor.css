@@ -1,0 +1,288 @@
+/* =========================================================
+   PÁGINA DA ÁREA DO MONITOR
+   ========================================================= */
+
+/* ---------- Atalhos de cadastro ---------- */
+
+.atalhos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-16);
+  margin-bottom: var(--sp-32);
+}
+
+.atalho {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-16);
+  padding: var(--sp-24);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-16);
+}
+
+.atalho__topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.atalho__numero {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 700;
+}
+
+.atalho__rotulo {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.atalho .btn { align-self: flex-start; }
+
+/* ---------- Abas e painéis ---------- */
+
+.abas-secao { margin-bottom: var(--sp-16); }
+
+.painel { padding: var(--sp-24); }
+
+.painel__barra {
+  display: flex;
+  gap: var(--sp-8);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-16);
+}
+
+.painel__barra .select {
+  width: auto;
+  min-width: 220px;
+  border-radius: 999px;
+}
+
+.painel__barra .chip { min-height: var(--touch); }
+
+/* ---------- Tabela ---------- */
+
+.tabela-wrap { overflow-x: auto; }
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabela th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  padding: 12px;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.tabela td {
+  padding: 12px;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.tabela tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+
+.tabela tbody tr:last-child td { border-bottom: 0; }
+
+.tabela__acoes-th { width: 1%; }
+
+.tabela__acoes {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.item-celula {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 240px;
+}
+
+.item-celula .icone-tile {
+  width: 36px;
+  height: 36px;
+}
+
+.item-celula .icone-tile svg { width: 18px; height: 18px; }
+
+.item-celula__titulo {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.item-celula__sub {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.autor-voce {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.tabela .btn--icon { width: 36px; min-height: 36px; }
+.tabela .btn--icon svg { width: 16px; height: 16px; }
+
+.btn--perigo:hover { color: var(--color-error); }
+
+/* ---------- Progresso ---------- */
+
+.resumo-progresso {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-16);
+  margin-bottom: var(--sp-24);
+}
+
+.resumo-progresso__item {
+  padding: var(--sp-16);
+  border-radius: var(--radius-8);
+  background: var(--color-canvas);
+  border: 1px solid var(--color-border);
+}
+
+.resumo-progresso__valor {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+}
+
+.col-progresso { width: 30%; }
+
+.progresso-celula {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progresso-celula .progress { flex: 1; min-width: 80px; }
+
+.progresso-celula__pct {
+  width: 44px;
+  text-align: right;
+  font-weight: 600;
+}
+
+.progress__bar--baixo { background: var(--color-error); }
+.progress__bar--medio { background: var(--color-accent); }
+
+.lista-atividades {
+  list-style: none;
+  margin: var(--sp-16) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.lista-atividades li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px var(--sp-16);
+  border-radius: var(--radius-8);
+  border: 1px solid var(--color-border);
+}
+
+/* ---------- Formulário ---------- */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-16);
+}
+
+.field--largo { grid-column: 1 / -1; }
+
+fieldset.field {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+fieldset.field legend { padding: 0; margin-bottom: 6px; }
+
+.segmentos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-8);
+}
+
+.segmento input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.segmento span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--touch);
+  border-radius: var(--radius-8);
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-muted);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.segmento svg { width: 18px; height: 18px; }
+
+.segmento input:checked + span {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: rgba(244, 203, 36, 0.08);
+}
+
+.segmento input:focus-visible + span {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.segmento input:disabled + span {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn.is-carregando {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* ---------- Responsivo ---------- */
+
+@media (max-width: 960px) {
+  .atalhos { grid-template-columns: 1fr; }
+  .atalho { flex-direction: row; align-items: center; justify-content: space-between; padding: var(--sp-16); }
+  .atalho .icone-tile { display: none; }
+  .atalho__numero { font-size: 32px; line-height: 32px; }
+  .resumo-progresso { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .painel { padding: var(--sp-16); }
+  .painel__barra .select { width: 100%; }
+  .form-grid { grid-template-columns: 1fr; }
+  .segmentos { grid-template-columns: repeat(2, 1fr); }
+
+  /* tabela vira lista de cartões no celular */
+  .tabela thead { display: none; }
+  .tabela tr { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 12px 0; border-bottom: 1px solid var(--color-border); }
+  .tabela td { padding: 0; border: 0; }
+  .tabela td:first-child { grid-column: 1 / -1; }
+  .item-celula { min-width: 0; }
+}

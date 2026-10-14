@@ -1,0 +1,117 @@
+/* =========================================================
+   TALKFLIX — BASE
+   Tokens extraídos do Figma ("Fundamentos"): tema escuro,
+   escala de espaçamento de 8 px, raios de 8 e 16 px.
+   Todas as páginas importam este arquivo primeiro.
+   ========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap");
+
+:root {
+  color-scheme: dark;
+
+  /* Cores (variáveis do Figma) */
+  --color-canvas: #10100f;
+  --color-surface: #1b1b19;
+  --color-elevated: #272724;
+  --color-primary: #c62828;
+  --color-primary-hover: #d93636;
+  --color-wine: #990b2e;
+  --color-accent: #f4cb24;
+  --color-text: #f7f7f2;
+  --color-muted: #bdbdb3;
+  --color-success: #78d5a0;
+  --color-error: #ff9292;
+  --color-info: #91bff5;
+  --color-border: #34342f;
+  --color-border-strong: #4a4a43;
+
+  /* Tipografia */
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+
+  /* Espaçamento (escala de 8 px) */
+  --sp-8: 8px;
+  --sp-16: 16px;
+  --sp-24: 24px;
+  --sp-32: 32px;
+  --sp-40: 40px;
+  --sp-48: 48px;
+  --sp-64: 64px;
+
+  /* Raios */
+  --radius-8: 8px;
+  --radius-16: 16px;
+
+  /* Layout */
+  --navbar-h: 72px;
+  --sidebar-w: 240px;
+  --touch: 48px; /* alvo interativo mínimo */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+
+h1 { font-size: 32px; line-height: 40px; }
+h2 { font-size: 24px; line-height: 32px; }
+h3 { font-size: 20px; line-height: 26px; }
+
+p { margin: 0; }
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.muted { color: var(--color-muted); }
+
+[hidden] { display: none !important; }
