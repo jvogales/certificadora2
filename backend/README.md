@@ -292,31 +292,7 @@ Authorization: Bearer <token_do_aluno>
 ```
  
 ---
- 
-## 6. Resumo das regras de negócio relevantes para o front-end
- 
-Essas regras não são apenas do backend — elas afetam diretamente como as
-telas devem se comportar:
- 
-- **Perfis distintos, telas distintas**: o front deve esconder/mostrar
-  funcionalidades com base no `perfil` retornado no login (ex: só
-  Monitor/Admin veem formulário de cadastro de conteúdo)
-- **Qualquer monitor edita qualquer conteúdo**: não existe o conceito de
-  "dono" do conteúdo na interface — todo monitor vê e pode editar tudo
-- **Materiais de aula não têm botão de conclusão**: só Atividades têm a
-  ação de "marcar como concluída" — o front deve diferenciar os dois tipos
-  visualmente
-- **Botão de conclusão é reversível** (estilo Moodle): o aluno pode marcar
-  e desmarcar uma atividade livremente, então a interface deveria mostrar
-  um toggle ou um botão que mude de estado, não uma ação irreversível
-- **Links de PDF abrem em nova aba/redirecionam para o Drive**: o front
-  não precisa (nem deve) tentar embutir um visualizador de PDF próprio —
-  é só redirecionar para a URL cadastrada
-- **Cadastro de usuários é fechado**: não existe tela de "criar conta" —
-  só o administrador cadastra alunos e monitores previamente
----
-
-## 7. Segurança
+## 6. Segurança
  
 - Senhas nunca são armazenadas em texto puro — são salvas com hash via
   `bcrypt` antes de ir para o banco
