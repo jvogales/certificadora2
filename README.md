@@ -13,7 +13,7 @@ séries de TV, desenvolvido pela UTFPR — Câmpus Cornélio Procópio.
 O **Talkflix** é um projeto de extensão que promove a prática de conversação
 em inglês usando séries, filmes e músicas como apoio pedagógico. Até hoje,
 o acesso aos materiais e às informações do projeto ficava restrito aos
-encontros presenciais e às redes sociais institucionais.
+encontros presenciais.
 
 Esta plataforma nasceu para resolver esse problema, oferecendo:
 
@@ -57,15 +57,6 @@ talkflix/
 ├── database/      → estrutura do banco de dados e dados de exemplo
 └── docs/          → documentos de planejamento, requisitos e modelagem
 ```
-
-- O **front-end** é a parte visual: páginas, botões, telas que o usuário
-  interage.
-- O **backend** é o "motor" por trás da plataforma: recebe as
-  solicitações do front-end, aplica as regras do sistema (quem pode
-  fazer o quê) e conversa com o banco de dados.
-- O **banco de dados** guarda as informações de forma organizada:
-  usuários, referências audiovisuais, materiais, atividades e o
-  progresso de cada aluno.
 - A pasta **docs** reúne o planejamento original do projeto, o
   levantamento de requisitos e o modelo de dados (diagrama ER).
 
