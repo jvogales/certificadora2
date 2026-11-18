@@ -304,11 +304,31 @@ const Api = (() => {
     return null;
   }
 
-  // Progresso dos alunos (RF17). Ainda NÃO existe rota no Back-End.
-  // Quando o grupo criar (ex.: GET /api/progresso), trocar o trecho do modo real.
+  // Progresso dos alunos (RF17)
+  // Modo real usa duas rotas do Back-End:
+  //   GET /api/usuarios                  -> lista os usuários (para achar os alunos)
+  //   GET /api/progresso/aluno/:alunoId  -> concluídas, disponíveis, percentual e histórico
   async function listarProgressoAlunos() {
     if (!CONFIG.USAR_MOCK) {
-      throw erro(501, "A consulta de progresso ainda não existe no Back-End (RF17). Combine a rota com o grupo.");
+      let usuarios;
+      try {
+        usuarios = await requisicao("/usuarios");
+      } catch (e) {
+        // No Back-End atual, só o ADMIN pode listar usuários
+        if (e.status === 403) {
+          throw erro(403, "No Back-End atual, só o administrador pode listar os alunos (GET /api/usuarios). Para o monitor ver esta aba, essa rota precisa aceitar também o perfil MONITOR.");
+        }
+        throw e;
+      }
+      const alunos = usuarios.filter((u) => u.perfil === "ALUNO" && u.ativo !== false);
+      // busca o progresso de todos os alunos ao mesmo tempo
+      const progressos = await Promise.all(alunos.map((a) => requisicao("/progresso/aluno/" + a.user_id)));
+      return alunos.map((a, i) => ({
+        id: a.user_id,
+        nome: a.nome,
+        login: a.login,
+        concluidas: (progressos[i].historico || []).map((h) => idPdf(h.conteudo_id)),
+      }));
     }
     await esperar(CONFIG.ATRASO_MOCK_MS);
     const atividades = new Set(banco.conteudos.filter((c) => c.tipo === "ATIVIDADE").map((c) => c.conteudo_id));
