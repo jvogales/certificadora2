@@ -170,7 +170,7 @@ POST /api/usuarios
 Authorization: Bearer <token_do_admin>
 Content-Type: application/json
  
-{ "nome": "Larissa Cortez", "login": "2648164", "senha": "senha123", "perfil": "ALUNO" }
+{ "nome": "Larissa Cortez", "login": "larissa.aluna, "senha": "TalkflixDemo2026!", "perfil": "ALUNO" }
 ```
 `perfil` aceita: `"ADMIN"`, `"MONITOR"` ou `"ALUNO"`.
  
