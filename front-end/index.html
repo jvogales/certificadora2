@@ -3,50 +3,287 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Entrar · Talkflix UTFPR</title>
+  <meta name="description" content="Talkflix: projeto de extensão da UTFPR (Cornélio Procópio) com aulas de conversação em inglês a partir de séries, filmes e músicas." />
+  <title>Talkflix UTFPR · Aulas de conversação em inglês com séries e filmes</title>
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/repositorio.css" />
+  <link rel="stylesheet" href="css/monitor.css" />
   <link rel="stylesheet" href="css/entrada.css" />
 </head>
 <body>
   <!--
-    Tela de entrada do Front-End (João Paulo).
-    Leva às áreas autenticadas: repositório e área do monitor.
-    Quando a página inicial pública do projeto (Larissa) estiver pronta,
-    o botão "Entrar" dela pode apontar para cá, ou este login pode virar o pop-up dela.
+    Página inicial pública (landing page).
+    - O login é montado pelo js/entrada.js dentro de #area-acesso (modo simulado ou real)
+      e redireciona: aluno -> pages/repositorio.html; monitor/administrador -> pages/monitor.html.
+    - O "Tenho interesse" é tratado pelo js/landing.js (POST /api/interessados no modo real).
+    - Os ids logo-icone, ic-1, ic-2, ic-3 e area-acesso são exigidos pelo entrada.js: não remover.
   -->
-  <main class="entrada">
-    <section class="entrada__marca">
-      <div class="logo">
+
+  <header class="navbar">
+    <div class="navbar__left">
+      <a class="logo" href="#inicio" aria-label="Talkflix UTFPR, início da página">
         <span class="logo__icon" id="logo-icone"></span>
         <span class="logo__brand">
           <span class="logo__name">Talkflix</span>
           <span class="logo__sub">UTFPR</span>
         </span>
+      </a>
+    </div>
+
+    <nav class="landing-nav" aria-label="Seções da página">
+      <a href="#projeto">O projeto</a>
+      <a href="#objetivos">Objetivos</a>
+      <a href="#atividades">Atividades</a>
+      <a href="#horarios">Horários</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <div class="user-area">
+      <button class="btn btn--outline btn--sm" data-abrir="modal-login">Entrar</button>
+      <button class="btn btn--primary btn--sm" data-abrir="modal-interesse">Tenho interesse</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Início ===== -->
+    <section class="entrada" id="inicio" aria-labelledby="titulo-hero">
+      <div class="entrada__marca">
+        <div class="page-header__eyebrow">Projeto de extensão · UTFPR Cornélio Procópio</div>
+        <h1 class="entrada__titulo" id="titulo-hero">
+          Aprenda inglês com as <span class="entrada__destaque">séries e filmes</span> que você ama
+        </h1>
+        <p class="entrada__texto">
+          Aulas de conversação em inglês a partir de trechos de séries, filmes e músicas.
+          Gratuito e aberto à comunidade acadêmica e ao público externo.
+        </p>
+        <div class="entrada__acoes">
+          <button class="btn btn--primary" data-abrir="modal-interesse">Tenho interesse</button>
+          <a class="btn btn--outline" href="#horarios">Ver horários</a>
+        </div>
+        <p class="entrada__nota">Vagas limitadas, com abertura a cada semestre.</p>
       </div>
-      <h1 class="entrada__titulo">Inglês, histórias e boas conversas.</h1>
-      <p class="entrada__texto">
-        Projeto de extensão da UTFPR Câmpus Cornélio Procópio de aulas de conversação em inglês com séries de TV.
-        Aqui ficam as referências das aulas, os materiais de apoio e as atividades.
-      </p>
-      <ul class="entrada__lista">
-        <li><span id="ic-1"></span> Repositório com séries, filmes e músicas usados nas aulas</li>
-        <li><span id="ic-2"></span> Materiais e atividades em PDF</li>
-        <li><span id="ic-3"></span> Área do monitor para organizar os conteúdos</li>
-      </ul>
+
+      <aside class="entrada__painel panel" aria-labelledby="titulo-area-alunos">
+        <h2 id="titulo-area-alunos">Área dos alunos</h2>
+        <ul class="entrada__lista">
+          <li><span id="ic-1"></span> Repositório com as séries, filmes e músicas usados nas aulas</li>
+          <li><span id="ic-2"></span> Materiais de apoio e atividades em PDF para baixar</li>
+          <li><span id="ic-3"></span> Plataforma online para acompanhar seu progresso</li>
+        </ul>
+        <p class="muted">O acesso é feito com a conta criada pela coordenação do projeto.</p>
+        <button class="btn btn--outline" data-abrir="modal-login">Já sou aluno: entrar</button>
+      </aside>
     </section>
 
-    <section class="entrada__painel panel" aria-labelledby="titulo-acesso">
-      <h2 id="titulo-acesso">Entrar</h2>
-      <div id="area-acesso"></div>
+    <!-- ===== O projeto ===== -->
+    <section class="secao" id="projeto" aria-labelledby="titulo-projeto">
+      <div class="secao__conteudo">
+        <div class="secao__cabecalho">
+          <div class="page-header__eyebrow">O projeto</div>
+          <h2 class="secao__titulo" id="titulo-projeto">Treine seu inglês de forma divertida!</h2>
+        </div>
+        <p class="entrada__texto">
+          Nas aulas, mostramos trechos de filmes, séries ou músicas populares e ligamos o aprendizado com diversão.
+        </p>
+        <p class="aviso-info">
+          Não precisa ser fluente, mas damos preferência para quem tem um nível intermediário de inglês.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== Objetivos ===== -->
+    <section class="secao secao--alt" id="objetivos" aria-labelledby="titulo-objetivos">
+      <div class="secao__conteudo">
+        <div class="secao__cabecalho">
+          <div class="page-header__eyebrow">Objetivos</div>
+          <h2 class="secao__titulo" id="titulo-objetivos">O que queremos com o projeto</h2>
+        </div>
+        <ul class="objetivos">
+          <li><span data-icone="check"></span> Praticar conversação em inglês com séries, filmes e músicas.</li>
+          <li><span data-icone="check"></span> Treinar a escuta com áudio e legenda em inglês.</li>
+          <li><span data-icone="check"></span> Fixar vocabulário e expressões em contexto.</li>
+          <li><span data-icone="check"></span> Oferecer um ambiente leve e descontraído para falar inglês.</li>
+          <li><span data-icone="check"></span> Abrir o projeto para a comunidade da UTFPR e para o público externo.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== Atividades ===== -->
+    <section class="secao" id="atividades" aria-labelledby="titulo-atividades">
+      <div class="secao__conteudo">
+        <div class="secao__cabecalho">
+          <div class="page-header__eyebrow">Atividades</div>
+          <h2 class="secao__titulo" id="titulo-atividades">O que acontece nas aulas</h2>
+        </div>
+        <div class="cartoes">
+          <article class="cartao panel">
+            <span class="icone-tile icone-tile--referencia" data-icone="serie"></span>
+            <h3>Exibição de trechos</h3>
+            <p>Trechos de filmes, séries e músicas populares, de até cerca de 10 minutos, com áudio e legendas em inglês.</p>
+          </article>
+          <article class="cartao panel">
+            <span class="icone-tile icone-tile--atividade" data-icone="atividade"></span>
+            <h3>Atividades em PDF</h3>
+            <p>Perguntas e exercícios ligados ao trecho, disponíveis na plataforma para consulta e download.</p>
+          </article>
+          <article class="cartao panel">
+            <span class="icone-tile icone-tile--material" data-icone="usuarios"></span>
+            <h3>Conversação</h3>
+            <p>Dinâmicas em grupo para usar o vocabulário e as expressões da cena, sem medo de errar.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Horários ===== -->
+    <section class="secao secao--alt" id="horarios" aria-labelledby="titulo-horarios">
+      <div class="secao__conteudo">
+        <div class="secao__cabecalho">
+          <div class="page-header__eyebrow">Horários</div>
+          <h2 class="secao__titulo" id="titulo-horarios">Horários das aulas</h2>
+        </div>
+        <div class="horario-cartao panel">
+          <span class="tag">Turma única neste semestre</span>
+          <dl class="ficha">
+            <div><dt>Dia</dt><dd>Segunda-feira</dd></div>
+            <div><dt>Horário</dt><dd>19h30 às 20h30</dd></div>
+            <div class="ficha__largo"><dt>Local</dt><dd>CALEM 2 · UTFPR, Câmpus Cornélio Procópio</dd></div>
+          </dl>
+          <p class="aviso-info">
+            As turmas têm vagas limitadas e os horários podem mudar a cada semestre.
+            Cadastre seu interesse para ser avisado.
+          </p>
+          <button class="btn btn--primary" data-abrir="modal-interesse">Tenho interesse</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contato ===== -->
+    <section class="secao" id="contato" aria-labelledby="titulo-contato">
+      <div class="secao__conteudo">
+        <div class="secao__cabecalho">
+          <div class="page-header__eyebrow">Contato</div>
+          <h2 class="secao__titulo" id="titulo-contato">Fale com a gente</h2>
+        </div>
+        <ul class="contato">
+          <li>
+            <span data-icone="externo"></span>
+            <div>
+              <strong>Instagram</strong>
+              <a href="https://www.instagram.com/talkflix.utfprcp/" target="_blank" rel="noopener noreferrer">@talkflix.utfprcp</a>
+            </div>
+          </li>
+          <li>
+            <span data-icone="local"></span>
+            <div>
+              <strong>Onde fica</strong>
+              <span class="muted">CALEM 2 · UTFPR, Câmpus Cornélio Procópio</span>
+            </div>
+          </li>
+        </ul>
+      </div>
     </section>
   </main>
+
+  <footer class="rodape">
+    <div class="secao__conteudo">
+      <p>Talkflix · projeto de extensão da Universidade Tecnológica Federal do Paraná, Câmpus Cornélio Procópio.</p>
+      <p>Gratuito e aberto à comunidade acadêmica e ao público externo.</p>
+    </div>
+  </footer>
+
+  <!-- Pop-up: Tenho interesse -->
+  <div class="modal" id="modal-interesse" role="dialog" aria-modal="true" aria-labelledby="interesse-titulo">
+    <form class="modal__box" id="form-interesse" novalidate>
+      <div class="modal__header">
+        <div>
+          <div class="detalhes-topo__categoria">Próximas turmas</div>
+          <h2 id="interesse-titulo">Tenho interesse</h2>
+        </div>
+        <button type="button" class="btn btn--ghost btn--icon modal__close" data-fechar="modal-interesse" data-icone="fechar" aria-label="Fechar"></button>
+      </div>
+
+      <div class="modal__body">
+        <div class="form-grid">
+          <div class="field field--largo">
+            <label class="field__label" for="i-nome">Nome <span class="req">*</span></label>
+            <input class="input" id="i-nome" name="nome" maxlength="150" autocomplete="name" />
+            <span class="field__error" data-erro="nome"></span>
+          </div>
+
+          <div class="field field--largo">
+            <label class="field__label" for="i-email">E-mail <span class="req">*</span></label>
+            <input class="input" id="i-email" name="email" type="email" maxlength="255" autocomplete="email" />
+            <span class="field__error" data-erro="email"></span>
+          </div>
+
+          <fieldset class="field field--largo">
+            <legend class="field__label">Você é da UTFPR? <span class="req">*</span></legend>
+            <div class="segmentos segmentos--duplo">
+              <label class="segmento"><input type="radio" name="vinculo" value="utfpr" /><span>Sou da UTFPR</span></label>
+              <label class="segmento"><input type="radio" name="vinculo" value="externo" /><span>Sou de fora</span></label>
+            </div>
+            <span class="field__error" data-erro="vinculo"></span>
+          </fieldset>
+
+          <div class="field field--largo" id="campo-matricula" hidden>
+            <label class="field__label" for="i-matricula">Matrícula <span class="req">*</span></label>
+            <input class="input" id="i-matricula" name="matricula" maxlength="50" autocomplete="off" />
+            <span class="field__hint">Usada apenas para identificar quem é da UTFPR.</span>
+            <span class="field__error" data-erro="matricula"></span>
+          </div>
+
+          <p class="aviso-info field--largo">
+            Este cadastro não representa uma inscrição nem garante vaga. Ele serve para você receber
+            informações quando novas turmas e períodos de inscrição forem abertos.
+          </p>
+        </div>
+      </div>
+
+      <div class="modal__footer">
+        <button type="button" class="btn btn--ghost" data-fechar="modal-interesse">Cancelar</button>
+        <button type="submit" class="btn btn--primary" id="btn-enviar-interesse">Cadastrar interesse</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Pop-up: confirmação do interesse -->
+  <div class="modal" id="modal-interesse-ok" role="alertdialog" aria-modal="true" aria-labelledby="ok-titulo">
+    <div class="modal__box modal__box--sm">
+      <div class="modal__body entrada__confirma">
+        <h2 id="ok-titulo">Interesse registrado</h2>
+        <p class="muted">Obrigado! Avisaremos pelo e-mail informado quando novas turmas e períodos de inscrição forem abertos.</p>
+        <p class="aviso-info">Este cadastro não representa uma inscrição nem garante vaga.</p>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--primary" data-fechar="modal-interesse-ok">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pop-up: login (o conteúdo de #area-acesso é montado pelo entrada.js) -->
+  <div class="modal" id="modal-login" role="dialog" aria-modal="true" aria-labelledby="login-titulo">
+    <div class="modal__box modal__box--sm">
+      <div class="modal__header">
+        <div>
+          <div class="detalhes-topo__categoria">Talkflix</div>
+          <h2 id="login-titulo">Entrar</h2>
+        </div>
+        <button type="button" class="btn btn--ghost btn--icon modal__close" data-fechar="modal-login" data-icone="fechar" aria-label="Fechar"></button>
+      </div>
+      <div class="modal__body">
+        <div id="area-acesso"></div>
+      </div>
+    </div>
+  </div>
 
   <script src="js/config.js"></script>
   <script src="js/mock-dados.js"></script>
   <script src="js/sessao.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/entrada.js"></script>
+  <script src="js/landing.js"></script>
 </body>
 </html>
