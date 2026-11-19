@@ -57,8 +57,8 @@ backend/
 ## 3. Como rodar localmente
  
 1. Tenha o PostgreSQL instalado e rodando, com o banco criado a partir de
-   `database/talkflix_schema.sql` (e, se quiser dados de exemplo,
-   `database/talkflix_seed.sql`).
+   `database\talkflix_create-table.sql` (e, se quiser dados de exemplo,
+   `database\talkflix_mock-insert.sql`).
 2. Instale as dependências:
 ```
    npm install
@@ -115,7 +115,7 @@ precisa levar o usuário de volta para a tela de login.
 POST /api/auth/login
 Content-Type: application/json
  
-{ "login": "2648164", "senha": "senha123" }
+{ "login": "larissa.aluna", "senha": "TalkflixDemo2026!" }
 ```
  
 **Resposta:**
