@@ -1,10 +1,11 @@
 INSERT INTO usuario (nome, login, senha, perfil, ativo) VALUES
-('Fábio Fernandes da Rocha Vicente', 'fabio.professor', 'senha123', 'ADMIN', TRUE),
-('Maria Luiza Parischi Fogaça',      'maria.monitor',   'senha123', 'MONITOR', TRUE),
-('Lucas Vieira Pagnan',              'lucas.monitor',   'senha123', 'MONITOR', TRUE),
-('Larissa Cortez',                   'larissa.aluna',   'senha123', 'ALUNO', TRUE),
-('João Paulo Barros',                'joaopaulo.aluno', 'senha123', 'ALUNO', TRUE),
-('João Vitor Gales',                 'joaovitor.aluno', 'senha123', 'ALUNO', TRUE);
+('Fábio Fernandes da Rocha Vicente', 'fabio.professor', '$2b$10$JJfyvPllettIUfrPdnS6Eue1BDxQ8F1QscWv5/eDnq7AxOvE.Z2U2', 'ADMIN', TRUE),
+('Maria Luiza Parischi Fogaça',      'maria.monitor',   '$2b$10$JJfyvPllettIUfrPdnS6Eue1BDxQ8F1QscWv5/eDnq7AxOvE.Z2U2', 'MONITOR', TRUE),
+('Lucas Vieira Pagnan',              'lucas.monitor',   '$2b$10$JJfyvPllettIUfrPdnS6Eue1BDxQ8F1QscWv5/eDnq7AxOvE.Z2U2', 'MONITOR', TRUE),
+('Larissa Cortez',                   'larissa.aluna',   '$2b$10$JJfyvPllettIUfrPdnS6Eue1BDxQ8F1QscWv5/eDnq7AxOvE.Z2U2', 'ALUNO', TRUE),
+('João Paulo Barros',                'joaopaulo.aluno', '$2b$10$JJfyvPllettIUfrPdnS6Eue1BDxQ8F1QscWv5/eDnq7AxOvE.Z2U2', 'ALUNO', TRUE),
+('João Vitor Gales',                 'joaovitor.aluno', '$2b$10$JJfyvPllettIUfrPdnS6Eue1BDxQ8F1QscWv5/eDnq7AxOvE.Z2U2', 'ALUNO', TRUE);
+
 
 
 INSERT INTO interessados (email, nome, matricula) VALUES
