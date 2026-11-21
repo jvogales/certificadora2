@@ -23,7 +23,16 @@ async function cadastrar({ nome, login, senha, perfil }) {
   // Aqui é o único lugar do sistema onde a senha em texto puro existe
   // antes de virar hash. Depois disso, só o hash é armazenado no banco.
   const senhaHash = await bcrypt.hash(senha, SALT_ROUNDS);
-  return usuarioRepository.criar({ nome, login, senhaHash, perfil });
+  try {
+    return await usuarioRepository.criar({ nome, login, senhaHash, perfil });
+  } catch (erro) {
+    // 23505 = UNIQUE violado: o login pertence a um usuário inativo
+    // (buscarPorLogin só enxerga usuários ativos)
+    if (erro.code === '23505') {
+      throw new ErroValidacao('Já existe um usuário com esse login (inativo)');
+    }
+    throw erro;
+  }
 }
 
 async function listar() {

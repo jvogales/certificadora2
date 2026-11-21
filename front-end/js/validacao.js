@@ -67,5 +67,17 @@ const Validacao = (() => {
     return erros;
   }
 
-  return { validarConteudo };
+  // Cadastro de usuário pela administração (mesmos campos de usuarios.service.js)
+  function validarUsuario(dados) {
+    const erros = {};
+    if (vazio(dados.nome) || dados.nome.trim().length < 2) erros.nome = "Informe o nome completo.";
+    if (vazio(dados.login)) erros.login = "Informe o login.";
+    else if (!/^[A-Za-z0-9._-]{3,50}$/.test(dados.login)) erros.login = "Use de 3 a 50 caracteres: letras, números, ponto, hífen ou sublinhado.";
+    if (!["aluno", "monitor", "admin"].includes(dados.perfil)) erros.perfil = "Escolha o perfil.";
+    if (vazio(dados.senha) || dados.senha.length < 6) erros.senha = "A senha precisa ter pelo menos 6 caracteres.";
+    if (dados.confirmacao !== dados.senha) erros.confirmacao = "As senhas não conferem.";
+    return erros;
+  }
+
+  return { validarConteudo, validarUsuario };
 })();

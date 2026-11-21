@@ -156,12 +156,12 @@ Retorna `400` se o e-mail já estiver cadastrado ou for inválido.
  
 ---
  
-### 5.2 Usuários — apenas `ADMIN`
+### 5.2 Usuários — `ADMIN` (listagem também para `MONITOR`)
  
 | Método | Rota | Descrição |
 |---|---|---|
 | POST | `/api/usuarios` | Cadastra aluno ou monitor |
-| GET | `/api/usuarios` | Lista todos os usuários |
+| GET | `/api/usuarios` | Lista todos os usuários (ADMIN e MONITOR; o monitor usa para ver o progresso dos alunos) |
 | DELETE | `/api/usuarios/:id` | Remove (inativa) um usuário |
  
 **Cadastrar usuário:**

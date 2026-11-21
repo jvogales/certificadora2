@@ -62,6 +62,23 @@ talkflix/
 
 ---
 
+## Como rodar
+
+1. Crie o banco PostgreSQL com `database/talkflix_create-table.sql` e, se quiser os dados
+   de exemplo, `database/talkflix_mock-insert.sql`.
+2. Na pasta `backend/`, copie `.env.exemple` para `.env`, preencha os dados do banco e rode
+   `npm install` e depois `npm start`.
+3. Abra **http://localhost:3000** no navegador. O próprio servidor entrega o site e a API
+   fica em `http://localhost:3000/api`.
+
+Usuários de exemplo: `fabio.professor` (administrador), `maria.monitor` (monitora) e
+`larissa.aluna` (aluna), todos com a senha `TalkflixDemo2026!`.
+
+Sem servidor, dá para abrir `front-end/index.html` direto (dois cliques): o site entra em
+**modo de demonstração**, com dados fictícios salvos só no navegador.
+
+---
+
 ## Equipe
 
 | Integrante | Responsabilidade principal |

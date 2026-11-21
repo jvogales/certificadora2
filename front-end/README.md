@@ -5,37 +5,32 @@ Páginas em HTML, CSS e JavaScript puros (sem framework), seguindo o design syst
 
 ## Páginas
 
-| Página | Arquivo | Quem acessa | Responsável |
-|---|---|---|---|
-| Tela de entrada (login) | `index.html` | todos | João Paulo |
-| Repositório de materiais | `pages/repositorio.html` | aluno, monitor, admin | João Paulo |
-| Área do monitor | `pages/monitor.html` | monitor, admin | João Paulo |
+| Página | Arquivo | Quem acessa |
+|---|---|---|
+| Página inicial (divulgação, "Tenho interesse" e login) | `index.html` | todos |
+| Meu painel | `pages/aluno.html` | aluno |
+| Repositório de materiais | `pages/repositorio.html` | aluno, monitor, admin |
+| Atividades | `pages/atividades.html` | aluno, monitor, admin |
+| Área do monitor | `pages/monitor.html` | monitor, admin |
+| Administração de usuários | `pages/admin.html` | admin |
 
-No menu lateral, as páginas dos outros integrantes (área do aluno, atividades e administração)
-aparecem como **"Em breve"**. Quando uma delas for criada, basta trocar `pronta: false` para
-`pronta: true` na lista `LINKS` de `js/ui.js`.
+Depois do login, o aluno vai para o **Meu painel**, o monitor para a **Área do monitor** e o
+administrador para a **Administração**.
 
 ## Como abrir
 
-### Modo simulado (sem servidor)
+O modo é escolhido sozinho, em `js/config.js`:
 
-Dê dois cliques em `index.html` e escolha um perfil (aluno, monitores ou administrador).
-Funciona no computador e no celular. Os dados vêm de
-`js/mock-dados.js`, que segue o mesmo formato das tabelas do banco
-(`database/talkflix_create-table.sql`) e usa os registros de `database/talkflix_mock-insert.sql`.
-O seletor **"Ver como"**, no topo, troca o usuário simulado (aluno, monitores, administrador).
+- **Com o Back-End (modo real):** na pasta `backend/`, rode `npm start` e abra
+  **http://localhost:3000**. O servidor entrega este site e as telas usam a API e o banco
+  PostgreSQL. Usuários de exemplo: `fabio.professor`, `maria.monitor`, `larissa.aluna`
+  (senha `TalkflixDemo2026!`).
+- **Sem servidor (modo de demonstração):** dê dois cliques em `index.html`. Os dados vêm de
+  `js/mock-dados.js` (mesmo formato do banco) e as alterações ficam salvas só no navegador.
+  Em "Entrar", escolha um perfil de teste.
 
-Para voltar aos dados originais, abra o console do navegador (F12) e rode:
-
-```js
-Api.restaurarMock(); location.reload();
-```
-
-### Modo real (com o Back-End)
-
-1. Suba o banco e o servidor seguindo `backend/README.md` (`npm install` e `npm start` dentro de `backend/`).
-2. Em `js/config.js`, troque `USAR_MOCK: true` para `USAR_MOCK: false`.
-3. Abra `index.html` e entre com um usuário cadastrado (login em `POST /api/auth/login`).
+Para voltar os dados de demonstração ao início, abra o console (F12) e rode
+`Api.restaurarMock(); location.reload();`
 
 ## Integração com o Back-End
 
@@ -43,23 +38,26 @@ Toda a comunicação fica em `js/api.js`. As páginas nunca chamam `fetch` diret
 
 | Ação na tela | Rota do Back-End |
 |---|---|
-| Listar o repositório | `GET /api/referencias` + `GET /api/conteudos` |
+| Login | `POST /api/auth/login` |
+| Listar o repositório e as atividades | `GET /api/referencias` + `GET /api/conteudos` |
 | Cadastrar referência | `POST /api/referencias` |
 | Cadastrar material ou atividade | `POST /api/conteudos` (`tipo`: `MATERIAL` ou `ATIVIDADE`) |
 | Editar | `PUT /api/referencias/:id` ou `PUT /api/conteudos/:id` |
 | Excluir | `DELETE /api/referencias/:id` ou `DELETE /api/conteudos/:id` |
-| Login | `POST /api/auth/login` |
-| Progresso dos alunos (RF17) | `GET /api/usuarios` + `GET /api/progresso/aluno/:id` |
+| Meu progresso (aluno) | `GET /api/progresso/meu` |
+| Marcar / desmarcar atividade (aluno) | `POST` / `DELETE /api/progresso/:atividadeId/concluir` |
+| Progresso dos alunos (monitor e admin) | `GET /api/usuarios` + `GET /api/progresso/aluno/:id` |
+| Usuários: listar, cadastrar, inativar | `GET`, `POST /api/usuarios`, `DELETE /api/usuarios/:id` |
+| Tenho interesse (página inicial) | `POST /api/interessados` |
 
-**Atenção:** no Back-End atual, `GET /api/usuarios` só aceita o perfil ADMIN. Por isso, a aba de
-progresso funciona para o administrador; para o monitor, ela mostra um aviso até essa rota aceitar
-também o perfil MONITOR.
+`GET /api/usuarios` aceita ADMIN e MONITOR (o monitor precisa da lista de alunos para ver o
+progresso); cadastrar e inativar usuários continuam só com o ADMIN.
 
 O `api.js` converte os dados do banco (`plataforma_fonte`, `link_fonte`, `arquivo_url`,
 `id_ref_audio`...) para o formato usado nas telas, e o contrário ao salvar.
 
-**Login (para quem fizer a página inicial):** o pop-up de login pode chamar
-`Sessao.entrar(login, senha)` (em `js/sessao.js`). Ela guarda no `sessionStorage`:
+**Login:** o pop-up da página inicial chama `Sessao.entrar(login, senha)` (em `js/sessao.js`),
+que guarda no `sessionStorage`:
 
 - `talkflix-token`: o token JWT;
 - `talkflix-usuario`: `{ userId, nome, perfil }`.
@@ -76,28 +74,32 @@ O `api.js` converte os dados do banco (`plataforma_fonte`, `link_fonte`, `arquiv
 
 ```
 front-end/
-├── index.html            tela de entrada (escolha de perfil ou login)
+├── index.html            página inicial (divulgação, interesse e login)
 ├── pages/
+│   ├── aluno.html        Meu painel
 │   ├── repositorio.html
-│   └── monitor.html
+│   ├── atividades.html
+│   ├── monitor.html
+│   └── admin.html
 ├── css/
 │   ├── base.css          cores, fontes e espaçamentos do Figma
-│   ├── layout.css        navbar + menu lateral (pode ser usado pelas outras páginas)
+│   ├── layout.css        navbar + menu lateral
 │   ├── components.css    botões, campos, pop-ups, avisos
-│   ├── entrada.css
+│   ├── entrada.css       página inicial
 │   ├── repositorio.css
-│   └── monitor.css
+│   ├── monitor.css
+│   └── paineis.css       painel do aluno, atividades e administração
 └── js/
-    ├── config.js         liga/desliga o modo simulado e define o endereço da API
-    ├── mock-dados.js     dados simulados no formato do banco
-    ├── api.js            comunicação com o Back-End
+    ├── config.js         escolhe o modo (real ou demonstração) e o endereço da API
+    ├── mock-dados.js     dados de demonstração no formato do banco
+    ├── api.js            toda a comunicação com o Back-End
     ├── sessao.js         login, usuário logado e permissões
     ├── busca.js          índice invertido, filtros e ordenação
     ├── validacao.js      validação dos formulários
     ├── ui.js             ícones, layout, menu, pop-ups, avisos
-    ├── entrada.js        lógica da tela de entrada
-    ├── repositorio.js    lógica da página do repositório
-    └── monitor.js        lógica da área do monitor
+    ├── entrada.js        login da página inicial
+    ├── landing.js        página inicial e "Tenho interesse"
+    ├── aluno.js · repositorio.js · atividades.js · monitor.js · admin.js
 ```
 
 ## Algoritmos e estruturas de dados (seção 3.5 do planejamento)

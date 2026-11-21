@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meu painel · Talkflix UTFPR</title>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/repositorio.css" />
+  <link rel="stylesheet" href="../css/monitor.css" />
+  <link rel="stylesheet" href="../css/paineis.css" />
+</head>
+<body>
+  <header class="navbar" id="navbar"></header>
+
+  <div class="app">
+    <nav class="sidebar" id="sidebar" aria-label="Menu principal"></nav>
+
+    <main class="main" id="conteudo-principal">
+      <div class="page-header">
+        <div>
+          <div class="page-header__eyebrow">Meu painel</div>
+          <h1 id="saudacao">Olá!</h1>
+          <p class="page-header__desc">
+            Acompanhe as atividades do projeto e marque as que você já fez. Os materiais de aula ficam no repositório.
+          </p>
+        </div>
+      </div>
+
+      <!-- Progresso (RF12 / RF13) -->
+      <section class="panel progresso-destaque" aria-labelledby="titulo-progresso">
+        <div>
+          <div class="progresso-destaque__numero" id="progresso-numero">–</div>
+          <div class="progresso-destaque__rotulo">de progresso</div>
+        </div>
+        <div>
+          <h2 id="titulo-progresso">Seu progresso nas atividades</h2>
+          <div class="progress progresso-destaque__barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progresso-barra-wrap" aria-label="Progresso nas atividades">
+            <div class="progress__bar" id="progresso-barra" style="width: 0%"></div>
+          </div>
+          <p id="progresso-texto">Carregando...</p>
+          <p class="progresso-destaque__nota">
+            Conta só as atividades. Os materiais de aula são para consulta e não entram no cálculo.
+          </p>
+        </div>
+      </section>
+
+      <div class="colunas">
+        <!-- Próximas atividades (pendentes) -->
+        <section class="panel bloco" aria-labelledby="titulo-pendentes">
+          <div class="bloco__topo">
+            <h2 id="titulo-pendentes">Próximas atividades</h2>
+            <a class="bloco__link" href="atividades.html" id="link-todas">Ver todas</a>
+          </div>
+          <ul class="tarefas" id="lista-pendentes"></ul>
+        </section>
+
+        <!-- Concluídas recentemente -->
+        <section class="panel bloco" aria-labelledby="titulo-concluidas">
+          <div class="bloco__topo">
+            <h2 id="titulo-concluidas">Concluídas</h2>
+          </div>
+          <ul class="tarefas" id="lista-concluidas"></ul>
+        </section>
+      </div>
+
+      <!-- Atalhos para o repositório -->
+      <section class="atalhos-painel" id="atalhos" aria-label="Atalhos para o repositório"></section>
+    </main>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/mock-dados.js"></script>
+  <script src="../js/sessao.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/busca.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/aluno.js"></script>
+</body>
+</html>

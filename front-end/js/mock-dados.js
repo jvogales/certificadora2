@@ -109,8 +109,8 @@ const MOCK_CONTEUDOS_PDF = [
 
 // Tabela conclusao_atividade (id_aluno, id_atividade)
 const MOCK_CONCLUSOES = [
-  { id_aluno: 4, id_atividade: 1 },
-  { id_aluno: 4, id_atividade: 2 },
-  { id_aluno: 5, id_atividade: 1 },
-  { id_aluno: 6, id_atividade: 3 },
+  { id_aluno: 4, id_atividade: 1, data_conclusao: "2026-08-21T19:10:00" },
+  { id_aluno: 4, id_atividade: 2, data_conclusao: "2026-08-28T20:05:00" },
+  { id_aluno: 5, id_atividade: 1, data_conclusao: "2026-08-22T18:40:00" },
+  { id_aluno: 6, id_atividade: 3, data_conclusao: "2026-09-03T21:15:00" },
 ];

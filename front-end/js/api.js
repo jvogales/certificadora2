@@ -147,13 +147,17 @@ const Api = (() => {
       referencias: copiar(MOCK_REFERENCIAS),
       conteudos: copiar(MOCK_CONTEUDOS_PDF),
       conclusoes: copiar(MOCK_CONCLUSOES),
+      usuarios: MOCK_USUARIOS.map((u) => ({ ...u, ativo: true, data_cadastro: "2026-08-01T10:00:00" })),
     };
   }
 
   function carregarBanco() {
     try {
       const salvo = localStorage.getItem(CHAVE_STORAGE);
-      if (salvo) return JSON.parse(salvo);
+      if (salvo) {
+        // completa com o que faltar (dados salvos por uma versão anterior da página)
+        return { ...bancoInicial(), ...JSON.parse(salvo) };
+      }
     } catch (e) {
       /* sem localStorage: usa os dados padrão */
     }
@@ -189,6 +193,12 @@ const Api = (() => {
         throw erro(400, "A referência audiovisual informada não existe");
       }
     }
+  }
+
+  function exigirPerfilMock(perfis) {
+    const u = Sessao.usuarioAtual();
+    if (!u || !perfis.includes(u.perfil)) throw erro(403, "Perfil sem permissão para esta operação");
+    return u;
   }
 
   function verificarPerfilMock() {
@@ -332,7 +342,7 @@ const Api = (() => {
     }
     await esperar(CONFIG.ATRASO_MOCK_MS);
     const atividades = new Set(banco.conteudos.filter((c) => c.tipo === "ATIVIDADE").map((c) => c.conteudo_id));
-    return MOCK_USUARIOS.filter((u) => u.perfil === "ALUNO").map((u) => ({
+    return banco.usuarios.filter((u) => u.perfil === "ALUNO" && u.ativo !== false).map((u) => ({
       id: u.user_id,
       nome: u.nome,
       login: u.login,
@@ -340,6 +350,127 @@ const Api = (() => {
         .filter((c) => c.id_aluno === u.user_id && atividades.has(c.id_atividade))
         .map((c) => idPdf(c.id_atividade)),
     }));
+  }
+
+  /* ================== Progresso do próprio aluno ================== */
+  // GET /api/progresso/meu, POST e DELETE /api/progresso/:atividadeId/concluir
+
+  function converterProgresso(p) {
+    return {
+      concluidas: p.atividadesConcluidas,
+      disponiveis: p.atividadesDisponiveis,
+      percentual: p.percentual,
+      historico: (p.historico || []).map((h) => ({ id: idPdf(h.conteudo_id), titulo: h.titulo, data: h.data_conclusao })),
+    };
+  }
+
+  async function meuProgresso() {
+    if (!CONFIG.USAR_MOCK) return converterProgresso(await requisicao("/progresso/meu"));
+
+    await esperar(CONFIG.ATRASO_MOCK_MS);
+    const aluno = exigirPerfilMock(["aluno"]);
+    const atividades = banco.conteudos.filter((c) => c.tipo === "ATIVIDADE");
+    const minhas = banco.conclusoes.filter((c) => c.id_aluno === aluno.id);
+    const disponiveis = atividades.length;
+    // mesma conta do progresso.service.js (1 casa decimal)
+    const percentual = disponiveis > 0 ? Math.round((minhas.length / disponiveis) * 1000) / 10 : 0;
+    const historico = minhas
+      .map((c) => ({
+        conteudo_id: c.id_atividade,
+        titulo: (atividades.find((a) => a.conteudo_id === c.id_atividade) || {}).titulo,
+        data_conclusao: c.data_conclusao || null,
+      }))
+      .sort((a, b) => String(b.data_conclusao || "").localeCompare(String(a.data_conclusao || "")));
+    return converterProgresso({ atividadesConcluidas: minhas.length, atividadesDisponiveis: disponiveis, percentual, historico });
+  }
+
+  async function concluirAtividade(id) {
+    const numero = numeroDoId(id);
+    if (!CONFIG.USAR_MOCK) return requisicao(`/progresso/${numero}/concluir`, { method: "POST" });
+
+    await esperar(CONFIG.ATRASO_MOCK_MS);
+    const aluno = exigirPerfilMock(["aluno"]);
+    const conteudo = banco.conteudos.find((c) => c.conteudo_id === numero);
+    // mesmas mensagens do progresso.service.js
+    if (!conteudo) throw erro(400, "Atividade não encontrada");
+    if (conteudo.tipo !== "ATIVIDADE") throw erro(400, "Apenas atividades podem ser marcadas como concluídas, não materiais de aula");
+    if (banco.conclusoes.some((c) => c.id_aluno === aluno.id && c.id_atividade === numero)) {
+      throw erro(400, "Esta atividade já foi marcada como concluída por você");
+    }
+    banco.conclusoes.push({ id_aluno: aluno.id, id_atividade: numero, data_conclusao: new Date().toISOString() });
+    salvarBanco();
+    return null;
+  }
+
+  async function desfazerConclusao(id) {
+    const numero = numeroDoId(id);
+    if (!CONFIG.USAR_MOCK) return requisicao(`/progresso/${numero}/concluir`, { method: "DELETE" });
+
+    await esperar(CONFIG.ATRASO_MOCK_MS);
+    const aluno = exigirPerfilMock(["aluno"]);
+    const antes = banco.conclusoes.length;
+    banco.conclusoes = banco.conclusoes.filter((c) => !(c.id_aluno === aluno.id && c.id_atividade === numero));
+    if (banco.conclusoes.length === antes) throw erro(400, "Esta atividade não estava marcada como concluída");
+    salvarBanco();
+    return null;
+  }
+
+  /* ================== Usuários (administração) ================== */
+  // GET /api/usuarios, POST /api/usuarios, DELETE /api/usuarios/:id (inativa)
+
+  function converterUsuario(u) {
+    return {
+      id: u.user_id,
+      nome: u.nome,
+      login: u.login,
+      perfil: String(u.perfil || "").toLowerCase(),
+      ativo: u.ativo !== false,
+      criadoEm: u.data_cadastro,
+    };
+  }
+
+  async function listarUsuarios() {
+    if (!CONFIG.USAR_MOCK) return (await requisicao("/usuarios")).map(converterUsuario);
+    await esperar(CONFIG.ATRASO_MOCK_MS);
+    exigirPerfilMock(["admin"]);
+    return copiar(banco.usuarios)
+      .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"))
+      .map(converterUsuario);
+  }
+
+  async function criarUsuario(dados) {
+    const corpo = { nome: dados.nome, login: dados.login, senha: dados.senha, perfil: String(dados.perfil || "").toUpperCase() };
+    if (!CONFIG.USAR_MOCK) return converterUsuario(await requisicao("/usuarios", { method: "POST", body: corpo }));
+
+    await esperar(CONFIG.ATRASO_MOCK_MS);
+    exigirPerfilMock(["admin"]);
+    // mesmas regras do usuarios.service.js
+    if (!corpo.nome || !corpo.login || !corpo.senha || !corpo.perfil) throw erro(400, "Nome, login, senha e perfil são obrigatórios");
+    if (!["ADMIN", "MONITOR", "ALUNO"].includes(corpo.perfil)) throw erro(400, "Perfil inválido");
+    if (banco.usuarios.some((u) => u.login === corpo.login)) throw erro(400, "Já existe um usuário com esse login");
+    const novo = {
+      user_id: proximoId(banco.usuarios, "user_id"),
+      nome: corpo.nome,
+      login: corpo.login,
+      perfil: corpo.perfil,
+      ativo: true,
+      data_cadastro: new Date().toISOString(),
+    };
+    banco.usuarios.push(novo);
+    salvarBanco();
+    return converterUsuario(novo);
+  }
+
+  // O Back-End não apaga o usuário: marca como inativo (mantém o histórico)
+  async function inativarUsuario(id) {
+    if (!CONFIG.USAR_MOCK) return requisicao("/usuarios/" + encodeURIComponent(id), { method: "DELETE" });
+    await esperar(CONFIG.ATRASO_MOCK_MS);
+    exigirPerfilMock(["admin"]);
+    const u = banco.usuarios.find((x) => x.user_id === id);
+    if (!u) throw erro(404, "Usuário não encontrado");
+    u.ativo = false;
+    salvarBanco();
+    return { user_id: id, ativo: false };
   }
 
   // Volta os dados simulados ao estado original
@@ -354,6 +485,12 @@ const Api = (() => {
     atualizarConteudo,
     excluirConteudo,
     listarProgressoAlunos,
+    meuProgresso,
+    concluirAtividade,
+    desfazerConclusao,
+    listarUsuarios,
+    criarUsuario,
+    inativarUsuario,
     restaurarMock,
   };
 })();

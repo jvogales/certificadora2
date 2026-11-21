@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Atividades · Talkflix UTFPR</title>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/repositorio.css" />
+  <link rel="stylesheet" href="../css/paineis.css" />
+</head>
+<body>
+  <header class="navbar" id="navbar"></header>
+
+  <div class="app">
+    <nav class="sidebar" id="sidebar" aria-label="Menu principal"></nav>
+
+    <main class="main" id="conteudo-principal">
+      <div class="page-header">
+        <div>
+          <div class="page-header__eyebrow">Prática fora da aula</div>
+          <h1>Atividades</h1>
+          <p class="page-header__desc" id="descricao"></p>
+        </div>
+        <div class="page-header__actions" id="acoes-cabecalho"></div>
+      </div>
+
+      <!-- Resumo do progresso (só para alunos) -->
+      <section class="panel resumo-linha" id="resumo" hidden>
+        <span class="resumo-linha__texto" id="resumo-texto"></span>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="resumo-barra-wrap" aria-label="Progresso nas atividades">
+          <div class="progress__bar" id="resumo-barra" style="width: 0%"></div>
+        </div>
+        <a class="bloco__link" href="aluno.html">Meu painel</a>
+      </section>
+
+      <section class="filtros" aria-label="Busca e filtros">
+        <div class="tabs" role="tablist" id="abas-situacao" aria-label="Situação" hidden></div>
+        <div class="filtros__linha">
+          <div class="search">
+            <span id="icone-busca"></span>
+            <label class="sr-only" for="campo-busca">Buscar atividades</label>
+            <input class="input" id="campo-busca" type="search" placeholder="Buscar por título ou série..." autocomplete="off" />
+          </div>
+          <div class="filtros__selects">
+            <label class="sr-only" for="ordenacao">Ordenar por</label>
+            <select class="select" id="ordenacao">
+              <option value="antigos">Ordem das aulas</option>
+              <option value="recentes">Mais recentes</option>
+              <option value="titulo">Título (A–Z)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <div class="resultado-info">
+        <span id="contagem" aria-live="polite"></span>
+      </div>
+
+      <section class="grade grade--estatica" id="lista-atividades" aria-label="Atividades"></section>
+    </main>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/mock-dados.js"></script>
+  <script src="../js/sessao.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/busca.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/atividades.js"></script>
+</body>
+</html>

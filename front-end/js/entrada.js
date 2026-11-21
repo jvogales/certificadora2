@@ -14,8 +14,11 @@
 
   const area = document.getElementById("area-acesso");
 
+  // Para onde cada perfil vai depois de entrar
   function destinoDoPerfil(perfil) {
-    return perfil === "aluno" ? "pages/repositorio.html" : "pages/monitor.html";
+    if (perfil === "aluno") return "pages/aluno.html";
+    if (perfil === "admin") return "pages/admin.html";
+    return "pages/monitor.html";
   }
 
   /* ---------- Modo simulado: escolha de perfil ---------- */

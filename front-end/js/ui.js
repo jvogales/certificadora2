@@ -102,15 +102,15 @@ function debounce(funcao, ms) {
 const UI = (() => {
   /* -------- Layout: navbar + barra lateral -------- */
 
-  // Links da barra lateral. "pronta: false" = página de outro integrante que
+  // Links da barra lateral. "pronta: false" = página que
   // ainda não existe: aparece como "Em breve" em vez de levar a um link quebrado.
   // Quando a página for criada, basta trocar para "pronta: true".
   const LINKS = [
-    { id: "aluno", rotulo: "Meu painel", href: "aluno.html", icone: "inicio", perfis: ["aluno"], pronta: false },
+    { id: "aluno", rotulo: "Meu painel", href: "aluno.html", icone: "inicio", perfis: ["aluno"], pronta: true },
     { id: "repositorio", rotulo: "Repositório", href: "repositorio.html", icone: "repositorio", perfis: ["aluno", "monitor", "admin"], pronta: true },
-    { id: "atividades", rotulo: "Atividades", href: "atividades.html", icone: "atividade", perfis: ["aluno", "monitor", "admin"], pronta: false },
+    { id: "atividades", rotulo: "Atividades", href: "atividades.html", icone: "atividade", perfis: ["aluno", "monitor", "admin"], pronta: true },
     { id: "monitor", rotulo: "Área do monitor", href: "monitor.html", icone: "monitor", perfis: ["monitor", "admin"], pronta: true },
-    { id: "admin", rotulo: "Administração", href: "admin.html", icone: "admin", perfis: ["admin"], pronta: false },
+    { id: "admin", rotulo: "Administração", href: "admin.html", icone: "admin", perfis: ["admin"], pronta: true },
   ];
 
   function montarLayout(paginaAtiva) {

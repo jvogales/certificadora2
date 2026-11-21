@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Administração · Talkflix UTFPR</title>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/repositorio.css" />
+  <link rel="stylesheet" href="../css/monitor.css" />
+  <link rel="stylesheet" href="../css/paineis.css" />
+</head>
+<body>
+  <header class="navbar" id="navbar"></header>
+
+  <div class="app">
+    <nav class="sidebar" id="sidebar" aria-label="Menu principal"></nav>
+
+    <main class="main" id="conteudo-principal">
+      <div class="page-header">
+        <div>
+          <div class="page-header__eyebrow">Administração</div>
+          <h1>Usuários da plataforma</h1>
+          <p class="page-header__desc">
+            Cadastre alunos, monitores e administradores. Só quem tem conta cadastrada aqui consegue entrar na plataforma.
+          </p>
+        </div>
+        <div class="page-header__actions">
+          <button class="btn btn--primary" id="btn-novo-usuario"></button>
+        </div>
+      </div>
+
+      <!-- Totais por perfil (usuários ativos) -->
+      <section class="atalhos" id="totais" aria-label="Totais por perfil"></section>
+
+      <section class="panel painel" aria-label="Lista de usuários">
+        <div class="painel__barra">
+          <div class="search">
+            <span id="icone-busca"></span>
+            <label class="sr-only" for="campo-busca">Buscar usuários</label>
+            <input class="input" id="campo-busca" type="search" placeholder="Buscar por nome ou login..." autocomplete="off" />
+          </div>
+          <label class="sr-only" for="filtro-perfil">Perfil</label>
+          <select class="select" id="filtro-perfil">
+            <option value="todos">Todos os perfis</option>
+            <option value="aluno">Alunos</option>
+            <option value="monitor">Monitores</option>
+            <option value="admin">Administradores</option>
+          </select>
+          <button class="chip" id="filtro-inativos" aria-pressed="false">Mostrar inativos</button>
+        </div>
+
+        <div class="tabela-wrap">
+          <table class="tabela">
+            <thead>
+              <tr>
+                <th scope="col">Usuário</th>
+                <th scope="col">Perfil</th>
+                <th scope="col">Situação</th>
+                <th scope="col">Cadastrado em</th>
+                <th scope="col" class="tabela__acoes-th"><span class="sr-only">Ações</span></th>
+              </tr>
+            </thead>
+            <tbody id="tabela-usuarios"></tbody>
+          </table>
+        </div>
+
+        <p class="aviso-info">
+          Inativar não apaga o usuário: ele deixa de conseguir entrar, mas o histórico (como as atividades concluídas) é mantido.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <!-- Pop-up de cadastro de usuário -->
+  <div class="modal" id="modal-usuario" role="dialog" aria-modal="true" aria-labelledby="usuario-titulo">
+    <form class="modal__box" id="form-usuario" novalidate>
+      <div class="modal__header">
+        <div>
+          <div class="detalhes-topo__categoria">Administração</div>
+          <h2 id="usuario-titulo">Cadastrar usuário</h2>
+        </div>
+        <button type="button" class="btn btn--ghost btn--icon modal__close" data-fechar="modal-usuario" aria-label="Fechar" id="btn-fechar-usuario"></button>
+      </div>
+
+      <div class="modal__body">
+        <div class="form-grid">
+          <fieldset class="field field--largo">
+            <legend class="field__label">Perfil <span class="req">*</span></legend>
+            <div class="segmentos segmentos--3" id="segmentos-perfil"></div>
+            <span class="field__error" data-erro="perfil"></span>
+          </fieldset>
+
+          <div class="field field--largo">
+            <label class="field__label" for="u-nome">Nome completo <span class="req">*</span></label>
+            <input class="input" id="u-nome" name="nome" maxlength="150" autocomplete="off" />
+            <span class="field__error" data-erro="nome"></span>
+          </div>
+
+          <div class="field field--largo">
+            <label class="field__label" for="u-login">Login <span class="req">*</span></label>
+            <input class="input" id="u-login" name="login" maxlength="50" autocomplete="off" placeholder="ex.: maria.silva" />
+            <span class="field__hint">É o que a pessoa vai digitar para entrar. Não pode repetir.</span>
+            <span class="field__error" data-erro="login"></span>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="u-senha">Senha inicial <span class="req">*</span></label>
+            <input class="input" id="u-senha" name="senha" type="password" autocomplete="new-password" />
+            <span class="field__error" data-erro="senha"></span>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="u-confirmacao">Confirmar senha <span class="req">*</span></label>
+            <input class="input" id="u-confirmacao" name="confirmacao" type="password" autocomplete="new-password" />
+            <span class="field__error" data-erro="confirmacao"></span>
+          </div>
+        </div>
+        <p class="aviso-info">Entregue o login e a senha à pessoa por um canal seguro. A senha é guardada criptografada no banco.</p>
+      </div>
+
+      <div class="modal__footer">
+        <button type="button" class="btn btn--ghost" data-fechar="modal-usuario">Cancelar</button>
+        <button type="submit" class="btn btn--primary" id="btn-salvar-usuario">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Pop-up de confirmação de inativação -->
+  <div class="modal" id="modal-inativar" role="alertdialog" aria-modal="true" aria-labelledby="inativar-titulo">
+    <div class="modal__box modal__box--sm">
+      <div class="modal__body">
+        <h2 id="inativar-titulo">Inativar usuário?</h2>
+        <p class="muted" id="inativar-texto" style="margin-top: 8px"></p>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--ghost" data-fechar="modal-inativar">Cancelar</button>
+        <button class="btn btn--danger" id="btn-confirmar-inativar">Inativar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/mock-dados.js"></script>
+  <script src="../js/sessao.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/busca.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/validacao.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

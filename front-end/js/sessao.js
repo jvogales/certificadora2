@@ -113,6 +113,16 @@ const Permissoes = {
     return Boolean(usuario) && (usuario.perfil === "monitor" || usuario.perfil === "admin");
   },
 
+  // Marcar atividade como concluída: só o próprio aluno (progresso.routes.js)
+  ehAluno(usuario) {
+    return Boolean(usuario) && usuario.perfil === "aluno";
+  },
+
+  // Administração de usuários: só o administrador (usuarios.routes.js)
+  podeAdministrar(usuario) {
+    return Boolean(usuario) && usuario.perfil === "admin";
+  },
+
   // Editar/excluir: segue a regra do Back-End (routes/*.routes.js),
   // em que qualquer monitor ou o administrador pode alterar qualquer conteúdo.
   // Se o grupo decidir que o monitor só altera o que cadastrou, troque por:

@@ -7,7 +7,9 @@ const router = express.Router();
 
 // só o administrador gerencia usuários
 router.post('/', autenticar, exigirPerfil('ADMIN'), usuariosController.cadastrar);
-router.get('/', autenticar, exigirPerfil('ADMIN'), usuariosController.listar);
+// a lista também é liberada ao monitor, que precisa dela para consultar o
+// progresso dos alunos (RF17); cadastrar e inativar continuam só com o ADMIN
+router.get('/', autenticar, exigirPerfil('ADMIN', 'MONITOR'), usuariosController.listar);
 router.delete('/:id', autenticar, exigirPerfil('ADMIN'), usuariosController.remover);
 // O ":id" na URL é um parâmetro dinâmico - captura qualquer valor que venha depois 
 // de "/usuarios/" e o disponibiliza como req.params.id no controlador

@@ -19,7 +19,10 @@ app.use(cors());
 // express.json() ensina o Express a entender corpos de requisição no
 // formato JSON, preenchendo automaticamente req.body
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../public')));
+// Serve o site (pasta front-end/) no mesmo endereço da API:
+// com o servidor rodando, http://localhost:3000 abre a página inicial
+// e as telas chamam a API em http://localhost:3000/api
+app.use(express.static(path.join(__dirname, '../../front-end')));
 
 app.use('/api/interessados', interessadosRoutes);
 app.use('/api/usuarios', usuariosRoutes);

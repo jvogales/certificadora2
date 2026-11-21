@@ -1,0 +1,266 @@
+/* =========================================================
+   PÁGINAS DO ALUNO, ATIVIDADES E ADMINISTRAÇÃO
+   (aluno.html, atividades.html, admin.html)
+   Reaproveita base.css, layout.css, components.css e
+   repositorio.css (cards); aqui ficam só as peças novas.
+   ========================================================= */
+
+/* ---------- Cartão de progresso (destaque) ---------- */
+
+.progresso-destaque {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--sp-32);
+  padding: var(--sp-32);
+  margin-bottom: var(--sp-32);
+  background: linear-gradient(135deg, var(--color-elevated), var(--color-surface));
+}
+
+.progresso-destaque__numero {
+  font-family: var(--font-display);
+  font-size: 72px;
+  line-height: 72px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.progresso-destaque__rotulo {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.progresso-destaque__barra { height: 12px; margin: var(--sp-16) 0 var(--sp-8); }
+
+.progresso-destaque h2 { font-size: 24px; line-height: 32px; }
+
+.progresso-destaque__nota {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+/* ---------- Duas colunas (próximas / concluídas) ---------- */
+
+.colunas {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--sp-24);
+  margin-bottom: var(--sp-32);
+}
+
+.bloco {
+  padding: var(--sp-24);
+}
+
+.bloco__topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-16);
+  margin-bottom: var(--sp-16);
+}
+
+.bloco__topo h2 { font-size: 22px; line-height: 28px; }
+
+.bloco__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.bloco__link:hover { color: var(--color-text); }
+.bloco__link svg { width: 14px; height: 14px; }
+
+/* Linha de atividade (painel do aluno) */
+.tarefas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.tarefa {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius-8);
+  border: 1px solid var(--color-border);
+  background: var(--color-canvas);
+}
+
+.tarefa .icone-tile { width: 36px; height: 36px; }
+.tarefa .icone-tile svg { width: 18px; height: 18px; }
+
+.tarefa__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tarefa__titulo {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tarefa__sub {
+  font-size: 13px;
+  color: var(--color-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tarefa__acoes {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.tarefa .btn--icon { width: 36px; min-height: 36px; }
+.tarefa .btn--icon svg { width: 16px; height: 16px; }
+
+.vazio-curto {
+  padding: var(--sp-24);
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 14px;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-8);
+}
+
+/* ---------- Atalhos do painel ---------- */
+
+.atalhos-painel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-16);
+}
+
+.atalho-link {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-16);
+  padding: var(--sp-16) var(--sp-24);
+  border-radius: var(--radius-16);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  text-decoration: none;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.atalho-link:hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-2px);
+}
+
+.atalho-link__numero {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: 700;
+}
+
+.atalho-link__rotulo {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.atalho-link .perfil__seta { margin-left: auto; color: var(--color-muted); }
+.atalho-link .perfil__seta svg { width: 18px; height: 18px; }
+
+/* ---------- Página de atividades ---------- */
+
+.resumo-linha {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-16);
+  padding: var(--sp-16) var(--sp-24);
+  margin-bottom: var(--sp-24);
+}
+
+.resumo-linha .progress { flex: 1; }
+
+.resumo-linha__texto {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.card--feita { border-color: rgba(120, 213, 160, 0.45); }
+
+.card__acoes {
+  position: relative; /* fica acima do botão que cobre o card */
+  z-index: 1;
+  display: flex;
+  gap: var(--sp-8);
+  flex-wrap: wrap;
+}
+
+.btn--concluida {
+  border-color: rgba(120, 213, 160, 0.6);
+  color: var(--color-success);
+}
+
+.btn--concluida:hover {
+  border-color: var(--color-error);
+  color: var(--color-error);
+  background: none;
+}
+
+/* ---------- Administração ---------- */
+
+.badge--aluno { color: var(--color-info); }
+.badge--monitor { color: var(--color-accent); }
+.badge--admin { color: var(--color-error); }
+
+.tag--inativo { color: var(--color-muted); }
+
+.tabela tr.linha--inativa td { opacity: 0.55; }
+.tabela tr.linha--inativa td:last-child { opacity: 1; }
+
+.segmentos--3 { grid-template-columns: repeat(3, 1fr); }
+
+.aviso-info {
+  font-size: 14px;
+  color: var(--color-muted);
+  padding: 12px var(--sp-16);
+  border-radius: var(--radius-8);
+  background: var(--color-surface);
+  border-left: 3px solid var(--color-info);
+  margin-top: var(--sp-16);
+}
+
+/* ---------- Responsivo ---------- */
+
+@media (max-width: 960px) {
+  .colunas { grid-template-columns: minmax(0, 1fr); }
+  .atalhos-painel { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .progresso-destaque {
+    grid-template-columns: 1fr;
+    gap: var(--sp-8);
+    padding: var(--sp-24);
+  }
+
+  .progresso-destaque__numero { font-size: 56px; line-height: 56px; }
+
+  .bloco { padding: var(--sp-16); }
+
+  .resumo-linha { flex-wrap: wrap; padding: var(--sp-16); }
+  .resumo-linha .progress { flex-basis: 100%; order: 3; }
+
+  .segmentos--3 { grid-template-columns: 1fr; }
+}
+
+/* Cards sem pop-up de detalhes (página de atividades) */
+.grade--estatica .card { cursor: default; }
+.grade--estatica .card:hover { transform: none; }
